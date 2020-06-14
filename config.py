@@ -1,10 +1,25 @@
+# This file should be hidden, to not expose sensitive data
 import os
-SECRET_KEY = os.urandom(32)
+
 # Grabs the folder where the script runs.
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-# Enable debug mode.
-DEBUG = True
+# database local conenction params
+database_params = {
+    "username": "postgres",
+    "password": "root",
+    "db_name": "casting_agency",
+    "dialect": "postgres"
+}
 
-# Connect to the database
-SQLALCHEMY_DATABASE_URI = 'postgres://postgres:root@localhost:5432/fyyur'
+# aurh0 config params
+
+auth0_params = {
+
+    "AUTH0_DOMAIN": "matef.auth0.com",
+    "ALGORITHMS": ['RS256'],
+    "API_AUDIENCE": "myapp"
+
+
+}
+
