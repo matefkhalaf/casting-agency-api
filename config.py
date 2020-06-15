@@ -12,7 +12,7 @@ database_params = {
     "dialect": "postgres"
 }
 
-# aurh0 config params
+# auth0 config params
 
 auth0_params = {
 
