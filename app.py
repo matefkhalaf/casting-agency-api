@@ -25,7 +25,7 @@ app = create_app()
 
 # GET /actors get actors endpoint
 @app.route('/actors', methods=['GET'])
-#@requires_auth('get:actors')
+@requires_auth('get:actors')
 def retrieve_actors():
     selection = Actor.query.order_by(Actor.id).all()
 
@@ -39,7 +39,7 @@ def retrieve_actors():
 
 # GET /movies get movies with their actors endpoint
 @app.route('/movies', methods=['GET'])
-#@requires_auth('get:movies')
+@requires_auth('get:movies')
 def retrieve_movies():
     selection = Movie.query.order_by(Movie.id).all()
 
@@ -53,7 +53,7 @@ def retrieve_movies():
 
 # POST /actors create a new actor
 @app.route('/actors', methods=['POST'])
-#@requires_auth('create:actors')
+@requires_auth('create:actors')
 def create_actor():
     body = request.get_json()
     new_age = body.get('age', None)
@@ -78,7 +78,7 @@ def create_actor():
 
 # POST /movies create a new movie
 @app.route('/movies', methods=['POST'])
-#@requires_auth('create:movies')
+@requires_auth('create:movies')
 def create_movie():
     body = request.get_json()
     new_title = body.get('title', None)
@@ -103,7 +103,7 @@ def create_movie():
 
 # PATCH /actors/<id> update an actor
 @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-#@requires_auth('update:actors')
+@requires_auth('update:actors')
 def update_actor(actor_id):
     actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
@@ -139,7 +139,7 @@ def update_actor(actor_id):
 
 # PATCH /movies/<id> update a movie
 @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-#@requires_auth('update:movies')
+@requires_auth('update:movies')
 def update_movie(movie_id):
     movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
@@ -174,7 +174,7 @@ def update_movie(movie_id):
 
 # Delete /actors/<id> delete an actor
 @app.route('/actors/<int:actor_id>', methods=['DELETE'])
-#@requires_auth('delete:actors')
+@requires_auth('delete:actors')
 def delete_actor(actor_id):
     try:
         actor = Actor.query.filter(
@@ -197,7 +197,7 @@ def delete_actor(actor_id):
 
 # Delete /movies/<id> delete a movie
 @app.route('/movies/<int:movie_id>', methods=['DELETE'])
-#@requires_auth('delete:movies')
+@requires_auth('delete:movies')
 def delete_movie(movie_id):
     try:
         movie = Movie.query.filter(
