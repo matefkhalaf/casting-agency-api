@@ -5,9 +5,14 @@ from datetime import date
 import json
 import os
 
-# try to get heroku DATABASE_URL env variable or set default local db connection string
-database_path = os.environ.get('DATABASE_URL', "{}://{}:{}@localhost:5432/{}".format(
-    database_params["dialect"], database_params["username"], database_params["password"], database_params["db_name"]))
+# try to get heroku DATABASE_URL env variable
+# or set default local db connection string
+database_path = os.environ.get('DATABASE_URL',
+                               "{}://{}:{}@localhost: 5432/{}".format(
+                                   database_params["dialect"],
+                                   database_params["username"],
+                                   database_params["password"],
+                                   database_params["db_name"]))
 
 db = SQLAlchemy()
 
@@ -22,7 +27,7 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    #db.create_all()
+    # db.create_all()
 
 
 '''
@@ -33,7 +38,7 @@ db_drop_and_create_all()
 
 
 def db_drop_and_create_all():
-    #db.drop_all()
+    db.drop_all()
     db.create_all()
     db_populate_db()
 
@@ -76,8 +81,11 @@ def db_populate_db():
 Performance
 N:N relationship between movies and actors
 '''
-Performance = db.Table('performance', db.Model.metadata, db.Column('movie_id', db.Integer, db.ForeignKey(
-    'movies.id')), db.Column('actor_id', db.Integer, db.ForeignKey('actors.id')))
+Performance = db.Table('performance', db.Model.metadata,
+                       db.Column('movie_id', db.Integer,
+                                 db.ForeignKey('movies.id')),
+                       db.Column('actor_id', db.Integer,
+                                 db.ForeignKey('actors.id')))
 
 
 '''
@@ -104,7 +112,7 @@ class Movie(db.Model):
             'id': self.id,
             'title': self.title,
             'release_date': self.release_date,
-            'actors' : [actor.name for actor in self.actors ]}
+            'actors': [actor.name for actor in self.actors]}
 
     '''
   insert()
@@ -188,4 +196,3 @@ class Actor(db.Model):
 
     def update(self):
         db.session.commit()
-

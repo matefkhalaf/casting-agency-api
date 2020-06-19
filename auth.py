@@ -3,12 +3,13 @@ from flask import request, _request_ctx_stack
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-from config import auth0_params
+import os
 
 
-AUTH0_DOMAIN = auth0_params["AUTH0_DOMAIN"]
-ALGORITHMS = auth0_params["ALGORITHMS"]
-API_AUDIENCE = auth0_params["API_AUDIENCE"]
+# get auth0 params from the envieonmental variables if available
+AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN')
+ALGORITHMS = os.environ.get('ALGORITHMS')
+API_AUDIENCE = os.environ.get('API_AUDIENCE')
 
 # AuthError Exception
 '''
@@ -38,7 +39,7 @@ get_token_auth_header() method
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
-    #print(request.headers)
+    # print(request.headers)
     auth = request.headers.get('Authorization', None)
     if not auth:
         raise AuthError({
@@ -76,7 +77,8 @@ check_permissions(permission, payload) method
         payload: decoded jwt payload
 
     it raise an AuthError if permissions are not included in the payload
-    it raise an AuthError if the requested permission string is not in the payload permissions array
+    it raise an AuthError if the requested permission string is not in
+    the payload permissions array
     return true otherwise
 '''
 
@@ -150,7 +152,8 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': '''Incorrect claims. Please, check the audience
+                and issuer.'''
             }, 401)
         except Exception:
             raise AuthError({
@@ -170,8 +173,10 @@ def verify_decode_jwt(token):
 
     it use the get_token_auth_header method to get the token
     it use the verify_decode_jwt method to decode the jwt
-    it use the check_permissions method validate claims and check the requested permission
-    return the decorator which passes the decoded payload to the decorated method
+    it use the check_permissions method validate claims and
+    check the requested permission
+    return the decorator which passes the decoded payload to the
+    decorated method
 '''
 
 

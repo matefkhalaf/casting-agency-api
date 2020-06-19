@@ -3,15 +3,17 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from auth import AuthError, requires_auth
-from models import setup_db, db_drop_and_create_all, Actor, Movie, Performance, db
+from models import setup_db, db_drop_and_create_all, \
+    Actor, Movie, Performance, db
 
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    db_drop_and_create_all()  # Should be uncommeted if we want to drop and re-create the db
-    CORS(app) # this will allow all origins and headers to access the API
+    # Should be uncommeted if we want to drop and re-create the db
+    db_drop_and_create_all()
+    CORS(app)  # this will allow all origins and headers to access the API
     # use the below CORS intialization format to allow certain headers/origins
     #  example: CORS(app, allow_headers=["header_1", "header_2"], resources={
     #    r"*": {"origins": ["origin_1", "origin_2"]}})
@@ -78,7 +80,7 @@ def create_app(test_config=None):
         body = request.get_json()
         new_title = body.get('title', None)
         new_release_date = body.get('release_date', None)
-        
+
         if ((new_title is None) or (new_release_date is None)):
             abort(422)
         try:
@@ -151,7 +153,6 @@ def create_app(test_config=None):
                 movie.title = new_title
             if new_release_date is not None:
                 movie.release_date = new_release_date
-            
 
             movie.update()
 
@@ -165,7 +166,6 @@ def create_app(test_config=None):
             abort(422)
         finally:
             db.session.close()
-
 
     # Delete /actors/<id> delete an actor
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
@@ -224,27 +224,27 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 404,
-            "message": "Not Found. Resource Not found or Web page doesn't exist"
+            "message": """Not Found. Resource Not found or
+            Web page doesn't exist"""
         }), 404
-
 
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({
             "success": False,
             "error": 400,
-            "message": "Bad Request. The request may be incorrect or corrupted"
+            "message": """Bad Request. The request may be
+            incorrect or corrupted"""
         }), 400
-
 
     @app.errorhandler(422)
     def unprocessable(error):
         return jsonify({
             "success": False,
             "error": 422,
-            "message": "Unprocessable Entity. An error occured while processing your request"
+            "message": """Unprocessable Entity.
+            An error occured while processing your request"""
         }), 422
-
 
     @app.errorhandler(500)
     def internal_error(error):
