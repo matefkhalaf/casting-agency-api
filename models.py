@@ -38,38 +38,7 @@ def db_drop_and_create_all():
     db_populate_db()
 
 
-'''
-db_populate_db()
-  populate the db with dummy data
-'''
 
-
-def db_populate_db():
-    new_actor_1 = Actor('Mohamed', 'Male', '25')
-    new_actor_2 = Actor('Khalaf', 'Male', '26')
-    new_actor_3 = Actor('Monica', 'Female', '23')
-
-    new_movie_1 = Movie('Shawshank_Redemption', date.today())
-    new_movie_2 = Movie('Happy_Days', date.today())
-
-    new_actor_1.insert()
-    new_actor_2.insert()
-    new_actor_3.insert()
-
-    new_movie_1.insert()
-    new_movie_2.insert()
-
-    new_performance_1 = Performance.insert().values(
-        movie_id=new_movie_1.id, actor_id=new_actor_1.id)
-    new_performance_2 = Performance.insert().values(
-        movie_id=new_movie_1.id, actor_id=new_actor_2.id)
-    new_performance_3 = Performance.insert().values(
-        movie_id=new_movie_2.id, actor_id=new_actor_3.id)
-
-    db.session.execute(new_performance_1)
-    db.session.execute(new_performance_2)
-    db.session.execute(new_performance_3)
-    db.session.commit()
 
 
 '''
@@ -189,3 +158,36 @@ class Actor(db.Model):
     def update(self):
         db.session.commit()
 
+
+'''
+db_populate_db()
+  populate the db with dummy data
+'''
+
+
+def db_populate_db():
+    new_actor_1 = Actor('Mohamed', 'Male', '25')
+    new_actor_2 = Actor('Khalaf', 'Male', '26')
+    new_actor_3 = Actor('Monica', 'Female', '23')
+
+    new_movie_1 = Movie('Shawshank_Redemption', date.today())
+    new_movie_2 = Movie('Happy_Days', date.today())
+
+    new_actor_1.insert()
+    new_actor_2.insert()
+    new_actor_3.insert()
+
+    new_movie_1.insert()
+    new_movie_2.insert()
+
+    new_performance_1 = Performance.insert().values(
+        movie_id=new_movie_1.id, actor_id=new_actor_1.id)
+    new_performance_2 = Performance.insert().values(
+        movie_id=new_movie_1.id, actor_id=new_actor_2.id)
+    new_performance_3 = Performance.insert().values(
+        movie_id=new_movie_2.id, actor_id=new_actor_3.id)
+
+    db.session.execute(new_performance_1)
+    db.session.execute(new_performance_2)
+    db.session.execute(new_performance_3)
+    db.session.commit()
