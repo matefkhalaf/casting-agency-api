@@ -219,7 +219,7 @@ curl -X PATCH http://127.0.0.1:5000/actors/1 -H "Content-Type: application/json"
   <i>you can update movies's title and release date</i>
 
 ```bash
-curl -X PATCH http://127.0.0.1:5000/movies/1 -H "Content-Type: application/json" -H "Authorization: Bearer ACCESS_TOKEN" -d '{"title" : "UPDATE_NAME", "release_dat" : "12/6/2020"
+curl -X PATCH http://127.0.0.1:5000/movies/1 -H "Content-Type: application/json" -H "Authorization: Bearer ACCESS_TOKEN" -d '{"title" : "UPDATE_NAME", "release_date" : "12/6/2020"
 }'
 ```
 
