@@ -12,7 +12,7 @@ def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
     # Should be uncommeted if we want to drop and re-create the db
-    #db_drop_and_create_all()
+    db_drop_and_create_all()
     CORS(app)  # this will allow all origins and headers to access the API
     # use the below CORS intialization format to allow certain headers/origins
     #  example: CORS(app, allow_headers=["header_1", "header_2"], resources={
