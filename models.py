@@ -38,7 +38,7 @@ db_drop_and_create_all()
 
 
 def db_drop_and_create_all():
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
     db_populate_db()
 
